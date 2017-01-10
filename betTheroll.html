@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!--
+	COP2822.0M1
+	Module 7
+
+	Author: Matthew Metzger
+	Date: 10/26/2016
+
+	File name: betTheRoll.html
+	Supporting files: greg.css
+-->
+<meta charset="UTF-8">
+<meta name="description" content="Card Game of 21">
+<title>Greg's Gambits | Play Games</title>
+<link href="greg.css" rel="stylesheet" type="text/css" />
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<script type="text/javascript">
+function rollTheDice() {
+	var wager = 0; 
+	var pMoney = 0; 
+	var cMoney = 0; 
+	
+
+	wager = parseFloat(document.getElementById("initialWager").value);
+	
+
+	validateWager(wager);
+	
+
+	var playerDie1; var playerDie2;
+	var compDie1; var compDie2;
+	playerDie1 = Math.floor((Math.random()*6)+1);
+	playerDie2 = Math.floor((Math.random()*6)+1);
+	compDie1 = Math.floor((Math.random()*6)+1);
+	compDie2 = Math.floor((Math.random()*6)+1);
+	
+
+	var playerScore = 0; var compScore = 0;
+
+	var winner = " ";
+	do {
+	
+		var cChoice = " "; 
+		var uChoice = " "; 
+		cChoice = compChoice();
+		
+		if (cChoice == 1) {
+		
+			playerScore = scoreTheRound(playerDie1, playerDie2); 
+			compScore = scoreTheRound(compDie1, compDie2); 
+			winner = getWinner(playerScore, compScore); 
+		} else if (cChoice == 2) {
+		
+			winner = "player";
+		} else if (cChoice == 3) {
+		
+			wager += 5;
+			uChoice = userChoice();	
+		}
+		
+		if (uChoice == 1) {
+			
+			playerScore = scoreTheRound(playerDie1, playerDie2); 
+			compScore = scoreTheRound(compDie1, compDie2); 
+			winner = getWinner(playerScore, compScore);
+		} else if (uChoice == 2) {
+			
+			winner = "computer";
+		} else if (uChoice == 3) {
+		
+			wager += 5;	
+		}
+	} while (cChoice == 3 && uChoice == 3)	
+	
+		
+	displayDie(playerDie1, playerDie2, compDie1, compDie2); 
+	displayScores(playerScore, compScore);
+	
+	displayWinMessage(winner, wager);
+}
+
+function validateWager(money) {
+	if (isNaN(money)) {
+		alert("please only enter dollar values");	
+	}
+}
+
+function compChoice() {
+
+	choice = Math.floor((Math.random()*3)+1);
+	return choice;
+}
+
+function userChoice() {
+
+	var choice = prompt("Your wager has been raised by $5. Type '1' to match, Type '2' to fold, Type '3' to see raise and raise $5");
+	return choice;
+}
+
+function displayDie(die1, die2, die3, die4) {
+	switch(die1) {
+		case 1:
+			document.getElementById("image1").src="images/die1.png";
+			break;
+		case 2:
+			document.getElementById("image1").src="images/die2.png";
+			break;
+		case 3:
+			document.getElementById("image1").src="images/die3.png";
+			break;
+		case 4:
+			document.getElementById("image1").src="images/die4.png";
+			break;
+		case 5:
+			document.getElementById("image1").src="images/die5.png";
+			break;
+		case 6:
+			document.getElementById("image1").src="images/die6.png";
+			break;
+	}
+	
+		switch(die2) {
+		case 1:
+			document.getElementById("image2").src="images/die1.png";
+			break;
+		case 2:
+			document.getElementById("image2").src="images/die2.png";
+			break;
+		case 3:
+			document.getElementById("image2").src="images/die3.png";
+			break;
+		case 4:
+			document.getElementById("image2").src="images/die4.png";
+			break;
+		case 5:
+			document.getElementById("image2").src="images/die5.png";
+			break;
+		case 6:
+			document.getElementById("image2").src="images/die6.png";
+			break;
+	}
+	
+		switch(die3) {
+		case 1:
+			document.getElementById("image3").src="images/die1.png";
+			break;
+		case 2:
+			document.getElementById("image3").src="images/die2.png";
+			break;
+		case 3:
+			document.getElementById("image3").src="images/die3.png";
+			break;
+		case 4:
+			document.getElementById("image3").src="images/die4.png";
+			break;
+		case 5:
+			document.getElementById("image3").src="images/die5.png";
+			break;
+		case 6:
+			document.getElementById("image3").src="images/die6.png";
+			break;
+	}
+	
+		switch(die4) {
+		case 1:
+			document.getElementById("image4").src="images/die1.png";
+			break;
+		case 2:
+			document.getElementById("image4").src="images/die2.png";
+			break;
+		case 3:
+			document.getElementById("image4").src="images/die3.png";
+			break;
+		case 4:
+			document.getElementById("image4").src="images/die4.png";
+			break;
+		case 5:
+			document.getElementById("image4").src="images/die5.png";
+			break;
+		case 6:
+			document.getElementById("image4").src="images/die6.png";
+			break;
+	}
+}
+
+function scoreTheRound(die1, die2) {
+	var sum;
+	sum = die1 + die2;
+	return sum;
+}
+
+function getWinner(pScore, cScore) {
+	if (pScore > cScore) {
+		return "player";
+	} else if (cScore > pScore) {
+		return "computer";
+	} else {
+		return "tie";
+	}
+}
+
+function displayScores(pScore, cScore) {
+
+	document.getElementById("pScoreRound").innerHTML = pScore;
+	document.getElementById("cScoreRound").innerHTML = cScore;
+}
+
+function displayWinMessage(win, money) {
+
+	switch(win) {
+		case "player":
+			document.getElementById("winner").innerHTML = "PLAYER wins $" + money;
+			break;
+		case "computer":
+			document.getElementById("winner").innerHTML = "COMPUTER wins $" + money;
+			break;
+		default:
+			document.getElementById("winner").innerHTML = "It's a TIE!";
+	}
+}
+
+function newGame() {
+
+	document.getElementById("initialWager").value = " ";
+	
+
+	document.getElementById("image1").src="images/die1.png";
+	document.getElementById("image2").src="images/die1.png";
+	document.getElementById("image3").src="images/die1.png";
+	document.getElementById("image4").src="images/die1.png";
+	
+
+	document.getElementById("pScoreRound").innerHTML = "&nbsp;";
+	document.getElementById("pScoreTotal").innerHTML = "&nbsp;";
+	document.getElementById("cScoreRound").innerHTML = "&nbsp;";
+	document.getElementById("cScoreTotal").innerHTML = "&nbsp;";
+	
+
+	document.getElementById("winner").innerHTML="&nbsp;";
+}
+
+
+</script>
+
+<style type="text/css">
+
+th, td {  
+	        padding: 30px;
+			width: 10px;
+			float: center;
+}
+
+content  {     
+
+            color: #b0d666;
+		    height: 400px;
+			width: 500px;
+	        margin-top: 25px;
+	        margin-right: 25px;
+	        margin-bottom: 25px;
+			margin-left: 25px;
+	        border: 2px #87ceeb;
+
+}
+table  {   color: #000000;
+           font-weight: bold;
+		   float: center;
+		   font-size:small;
+}
+
+span {  
+		   font-size:20px;
+}
+
+
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+ <br>
+ <h1 align="center"><font color="White">Dice-Rolling Game</font></h1>
+
+<div style ="clear:both;"></div>  
+
+<div id="nav">
+  <p><a href="index.html">Home</a>
+  <a href="greg.html">About Greg</a>
+  <a href="play_games.html">Play a Game</a>
+  <a href="signin.html">Sign In</a>
+  <a href="contact.html">Contact Us</a></p>
+  <a href="greg_aboutyou.html">Tell Greg About You</a>
+</div>
+    <div style="clear: right;"></div>
+
+
+
+<div id="content"><center>
+
+
+<P><h3><font color="White"><center>Welcome to Dice!  Here you play against the computer. Have fun rolling the computer generated 6 sided dice. If the players tie, both players win.  The game ends when the human player wants to quit.</center></font></h3></p>
+<input id="newGame" value="Clear Game Board" onclick="newGame();" type="button">
+
+<table width="95%" height="50%" border="0" cellspacing="0" cellpadding="5">
+
+ 
+   
+   
+		<tr><td><h2 id="title1">Player's Dice</h2></td>
+		<td bgcolor="#FFFFFF"><img id="image1" src="images/die4.png" alt="die 1" height="100" width="100"></td>
+    	<td bgcolor="#FFFFFF"><img id="image2" src="images/die2.png" alt="die 1" height="100" width="100"></td>
+    	<td>Score for Round: <span id="pScoreRound">6</span></td></tr>
+
+		<tr><td>Wager amount $<input value="2" name="initialWager" id="initialWager" size="6" type="text"></td>
+        <td bgcolor="#00bfff"><input id="roll" value="Roll the Dice" onclick="rollTheDice();" type="button"></td>
+		<td bgcolor="#00bfff"><input id="newGame" value="New Game" onclick="newGame();" type="button"> </td>
+		<td><span id="winner">COMPUTER wins $2</span></td></tr>
+   
+		<tr><td><h2>Computer's Dice</h2></td>
+		<td bgcolor="#FFFFFF"><img id="image3" src="images/die5.png" alt="die 1" height="100" width="100"></td>
+		<td bgcolor="#FFFFFF"><img id="image4" src="images/die6.png" alt="die 1" height="100" width="100"></td>
+		<td>Score for Round: <span id="cScoreRound">11</span></td></tr>
+   
+</table>
+</div>
+<br>
+<br>
+    <div id="footer">Copyright &copy; 2016 Greg's Gambits<br>
+      <a href="mailto:matthew@metzger.com">matthew@metzger.com</a>
+    </div>
+  </div>
+</body>
+</html>

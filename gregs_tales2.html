@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!--
+	COP2822.0M1
+	Module 2
+
+	Author: Matthew Metzger
+	Date: 9/7/2016
+
+	File name: greg_tales2.html
+	Supporting files: greg.css
+-->
+<title>Greg's Gambits | Greg's Tales</title>
+<link href="greg.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+		function start_game()
+		{	
+		
+		gender = prompt("Is this story about a boy or a girl? ");
+			letter = gender.charAt(0);
+			gender = (letter == "b" || letter == "B")?"boy":"girl";
+			pronoun = (gender == "boy")?"he":"she";
+		age = prompt("Enter the age of the character: ");
+		name = prompt("Enter the character's name: ");
+		verb = prompt("Enter an activity you like to do as a past-tense verb 'running'/'swimming'/'playing': ");
+		color = prompt("Enter your favorite color: ");
+		document.getElementById("content").innerHTML = ("Once upon a time " + name + " was sitting at home wearing a " + color + " colored hat and watching TV. " + name + " decided " + pronoun + " was bored and wanted to do something fun, so " + pronoun + " called a friend to go have fun together. " + name + " and the friend decided to do " + name + "'s favorite activity and were " + verb + " all afternoon. On the way back from " + verb + " they decided to stop buy a candy store that sold lolipops. " + name + " bought a " + color + " lolipop and enjoyed it as " + name + " walked home from a long day of " + verb + " all afternoon with the friend. ");
+		 	var gender = "boy";
+			var verb = " ";
+			var color = " ";
+		}
+</script>
+</head>
+
+<body>
+<div id="container">
+	 <h1><em>Greg's Tales</em></h1>
+	 <h3>For this game, you will create a story by entering words as prompted. The story will change each time you run this game, as you enter different words.</h3>
+	 <div id="nav">
+  <p><a href="index.html">Home</a>
+  <a href="greg.html">About Greg</a>
+  <a href="play_games.html">Play a Game</a>
+  <a href="signin.html">Sign In</a>
+  <a href="contact.html">Contact Us</a></p>
+  <a href="greg_aboutyou.html">Tell Greg About You</a>
+</div>
+	<div id="content">
+		 <input type="button" value = "click to begin" onclick="start_game()" />
+	</div>
+	<div id="footer">Copyright &copy; 2013 Greg's Gambits<br /> <a href="mailto:yourfirstname@yourlastname.com"> yourfirstname@yourlastname.com</a>
+	</div>
+</div>
+</body>
+</html>

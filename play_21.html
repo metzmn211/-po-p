@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<!--
+	COP2822.0M1
+	Module 5
+
+	Author: Matthew Metzger
+	Date: 10/5/2016
+
+	File name: play_21.html
+	Supporting files: greg.css
+-->
+<meta charset="UTF-8">
+<meta name="description" content="Card Game of 21">
+<title>Greg&rsquo;s Gambits | Game of 21</title>
+	<link href="greg.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function playCards()
+{
+		//initialize variables
+      // get Hero&rsquo;s cards
+      var heroCard1 = 0; var heroCard2 = 0;
+      var dealerCard1 = 0; var dealerCard2 = 0;
+      var heroRoundPts = 0; var dealerRoundPts;
+      var heroHitMe = " "; var heroCardAdd = 0;
+      var heroPts = 0; var dealerPts = 0;
+ 
+      while ((heroPts < 200) && (dealerPts < 200))
+      {        	
+      document.getElementById("winner").innerHTML = ("&nbsp; ");  
+      // deal player&rsquo;s initial cards
+      heroCard1 = Math.floor(Math.random() * 10 + 1);
+      heroCard2 = Math.floor(Math.random() * 10 + 1);
+      // Display player&rsquo;s initial cards
+      document.getElementById("heroCard1").innerHTML = (heroCard1);   
+      document.getElementById("heroCard2").innerHTML = (heroCard2);      
+      heroRoundPts = heroCard1 + heroCard2;  // Calculate player&rsquo;s initial round points   
+      document.getElementById("heroRoundPts").innerHTML = (heroRoundPts); // display the player&rsquo;s initial round points
+      
+      // deal dealer&rsquo;s initial cards
+      dealerCard1 = Math.floor(Math.random() * 10 + 1);
+      dealerCard2 = Math.floor(Math.random() * 10 + 1);
+      dealerRoundPts = dealerCard1 + dealerCard2;  // Calculate dealer&rsquo;s round points  			
+		    
+	      	do  
+	      	{   	 
+	      	  // Ask if player would like another card
+	      	  alert("The total of your cards for this round so far is " + heroRoundPts + ".");
+	          heroHitMe = prompt("Would you like another card? enter 'y' for yes, 'n' for no (enter 'q' at any time to quit.)", " "); 
+	  		  while ((heroHitMe != "y") && (heroHitMe != "n") && (heroHitMe != "q"))
+	  			heroHitMe = prompt("That was not a valid choice. Please enter 'y' for yes, 'n' for no (enter 'q' at any time to quit.)", " ");        
+		      if (heroHitMe == "y") 
+		      { 
+			      heroCardAdd = Math.floor(Math.random() * 10 + 1);
+			      heroRoundPts = heroRoundPts + heroCardAdd;
+			      document.getElementById("heroCardAdd").innerHTML = (heroCardAdd);
+			      document.getElementById("heroRoundPts").innerHTML = (heroRoundPts); 	
+		      }	
+		    }while((heroHitMe == "y") && (heroRoundPts < 21));	
+	  		if (heroHitMe== "q") break;
+	  		
+	      // Find the round winner
+	        if (((heroRoundPts <= 21) && (heroRoundPts > dealerRoundPts)) || ((heroRoundPts <= 21) && (dealerRoundPts > 21)))
+	        {
+	          heroPts = heroPts + heroRoundPts;
+	          dealerPts = dealerPts + 0;
+	          document.getElementById("dealerCard1").innerHTML = (dealerCard1);
+	          document.getElementById("dealerCard2").innerHTML = (dealerCard2);	        
+		        document.getElementById("dealerRoundPts").innerHTML = (dealerRoundPts);
+	          document.getElementById("heroPts").innerHTML = (heroPts);
+	          document.getElementById("dealerPts").innerHTML = (dealerPts);
+	          document.getElementById("winner").innerHTML = ("You win this round!");        
+	    	  alert("YOU WON this round! Your ROUND total was " + heroRoundPts + " and Dealer's ROUND total is " + dealerRoundPts + ". Your OVERALL GAME total is " + heroPts + " and the Dealer's OVERALL GAME total is " + dealerPts + ".");
+    		  heroCardAdd = 0;
+		      document.getElementById("heroCardAdd").innerHTML = (heroCardAdd); 
+	        }
+	        else if (((dealerRoundPts <= 21) && (dealerRoundPts > heroRoundPts)) || ((dealerRoundPts <= 21) && (heroRoundPts > 21)))
+	        {
+	          dealerPts = dealerPts + dealerRoundPts;
+	          heroPts = heroPts + 0;
+	          document.getElementById("dealerCard1").innerHTML = (dealerCard1);
+	          document.getElementById("dealerCard2").innerHTML = (dealerCard2);	        
+		      document.getElementById("dealerRoundPts").innerHTML = (dealerRoundPts);
+	          document.getElementById("dealerPts").innerHTML = (dealerPts);
+	          document.getElementById("heroPts").innerHTML = (heroPts);	          
+	          document.getElementById("winner").innerHTML = ("Dealer won this round!");        
+	    	  alert("DEALER WON this round! Your ROUND total was " + heroRoundPts + " and Dealer's ROUND total is " + dealerRoundPts + ". Your OVERALL GAME total is " + heroPts + " and the Dealer's OVERALL GAME total is " + dealerPts + ".");
+    		  heroCardAdd = 0;
+		      document.getElementById("heroCardAdd").innerHTML = (heroCardAdd); 
+	        }
+	        else if (heroRoundPts == dealerRoundPts)
+	        {
+	          dealerPts = dealerPts + 0;
+	          heroPts = heroPts + 0;
+	          document.getElementById("dealerCard1").innerHTML = (dealerCard1);
+	          document.getElementById("dealerCard2").innerHTML = (dealerCard2);	        
+		      document.getElementById("dealerRoundPts").innerHTML = (dealerRoundPts);
+	          document.getElementById("heroPts").innerHTML = (heroPts);
+	          document.getElementById("dealerPts").innerHTML = (dealerPts);
+	          document.getElementById("winner").innerHTML = ("It's a tie!");        
+	    	  alert("TIE GAME! Your ROUND total was " + heroRoundPts + " and Dealer's ROUND total is " + dealerRoundPts + ". Your OVERALL GAME total is " + heroPts + " and the Dealer's OVERALL GAME total is " + dealerPts + ".");
+    		  heroCardAdd = 0;
+		      document.getElementById("heroCardAdd").innerHTML = (heroCardAdd); 
+	        }        
+	        else if ((heroRoundPts > 21) && (dealerRoundPts > 21))
+	        {
+	          dealerPts = dealerPts + 0;
+	          heroPts = heroPts + 0;
+	          document.getElementById("dealerCard1").innerHTML = (dealerCard1);
+	          document.getElementById("dealerCard2").innerHTML = (dealerCard2);	        
+		      document.getElementById("dealerRoundPts").innerHTML = (dealerRoundPts);
+	          document.getElementById("heroPts").innerHTML = (heroPts);
+	          document.getElementById("dealerPts").innerHTML = (dealerPts);
+	          document.getElementById("winner").innerHTML = ("It's a tie!");       
+	    	  alert("NO WINNERS!You and the dealer both went OVER 21! Your ROUND total was " + heroRoundPts + " and Dealer's ROUND total is " + dealerRoundPts + ". Your OVERALL GAME total is " + heroPts + " and the Dealer's OVERALL GAME total is " + dealerPts + ".");
+    		  heroCardAdd = 0;
+		      document.getElementById("heroCardAdd").innerHTML = (heroCardAdd); 
+	        }
+            if (heroRoundPts > 21)
+            alert("BLASTED!!! You went over 21!");
+	   }     
+	      //display the final winner
+	    if (heroHitMe == "q")   
+	      document.getElementById("champ").innerHTML = ("Yeah, who can blame you with a crazy dealer like this one handling the cards???");
+			
+	    if (dealerPts >= 50)    
+	      document.getElementById("champ").innerHTML = ("The dealer is the CHUMP... er... CHAMP!");      
+	    
+	    if (heroPts >= 50)    
+	      document.getElementById("champ").innerHTML = ("Woohoo!!! You won the whole pot! You're the CHAMPION!!!");     
+        
+}
+</script>
+<style type="text/css">
+<!--
+.style1 {font-size: 18px}
+-->
+</style>
+</head>
+
+<body>
+<div id="container2">
+ <img src="superhero.jpg" width="120" height="120" class="floatleft" />
+ <br>
+ <h1 align="center"><em><font color="Purple">The Dealers Table</font></em></h1>
+
+ 
+<div style ="clear:both;"></div>  
+<div id="nav">
+  <p><a href="index.html">Home</a>
+	 	  <a href="greg.html">About Greg</a>
+	 	  <a href="play_games.html">Play a Game</a>
+	 	  <a href="sign.html">Sign In</a>
+	 	  <a href="contact.html">Contact Us</a></p>
+		  <a href="aboutyou.html">Tell Greg About You</a></p>
+</div>
+
+
+  <div id="container">
+    <div id="content">
+      <table width = "85%"  cellpadding="5" border = "0">
+        <tr><td><img src="theplayer.jpg" width="172" height="175"></td><td><img src="thedealer.jpg" width="178" height="176"></td></tr>
+        <tr><td>Your cards:</td><td>Dealer's cards:</td></tr>
+        <tr><td>Your first card here</td><td>Dealer's first card here</td></tr>
+        <tr><td id="heroCard1">0</td><td id="dealerCard1">0</td></tr>
+        <tr><td>Your second card here</td><td>Dealer&rsquo;s second card here</td></tr>
+        <tr><td id="heroCard2">0</td><td id="dealerCard2">0</td></tr>
+        <tr><td>Your additional card</td><td></td></tr>
+        <tr><td id="heroCardAdd">0</td><td>$$$$$$$</td></tr>
+        <tr><td>Your round points total</td><td>Dealer&rsquo;s round points total</td></tr>
+        <tr><td id="heroRoundPts">0</td><td id="dealerRoundPts">0</td></tr>
+        <tr><td colspan="2">The round winner is:</td></tr>
+        <tr><td id="winner" colspan=2>&nbsp;</td></tr>
+        <tr><td>Hero points:</td><td>Dealer points:</td></tr>  
+        <tr><td id="heroPts"></td><td id="dealerPts"></td></tr>
+        <tr><td id="champ" colspan="2">Champion Announced Here!</td></tr>
+        
+        <tr>
+          <td><input type="button" id="battle" value="Deal Cards" onclick="playCards()"; /></td>
+          <td><input type="button" id="return" value="Return to card game instructions" onclick="location.href = 'game21.html'"; /></td>
+        </tr>
+      </table>
+    </div>    
+    <div id="footer">Copyright &copy; 2016 Greg's Gambits<br>
+      <a href="mailto:matthew@metzger.com">matthew@metzger.com</a>
+    </div>
+  </div>
+</body>
+</html>

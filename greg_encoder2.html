@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<!--
+	COP2822.0M1
+	Module 4
+
+	Author: Matthew Metzger
+	Date: 9/28/2016
+
+	File name: greg_encoder2.html
+	Supporting files: greg.css
+-->
+	<title>Greg's Gambits | Unbreakable Secret Message Encoder</title>
+	<link href="greg.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function encodeIt()
+{
+	document.getElementById("message").innerHTML = ("<h2>&nbsp;</h2>");
+	var msg = prompt("Enter your message." , " ");
+	var newmsg = " ";
+	var newCode = 0;
+	var random = 0;
+	var random = Math.floor((Math.random() * 10) + 1);
+//the loop encodes each letter int he message string
+	for (var j = 0; j < msg.length; j++)
+	{
+	//check for uppercase letters and encode them
+		if ((msg.charCodeAt(j)>=65) && (msg.charCodeAt(j)<=90))
+		{
+			newcode = (msg.charCodeAt(j) + random);
+		}
+		else
+	//check for lowercase letters and encode them
+		if ((msg.charCodeAt(j)>=97) && (msg.charCodeAt(j)<=122))
+		{
+			newcode = (msg.charCodeAt(j) - random);
+		}
+		else
+	//check for numbers and special characters and encode them
+			if(((msg.charCodeAt(j)>90) && (msg.charCodeAt(j)<97)) || (msg.charCodeAt(j)<65))
+			{
+			newcode = (msg.charCodeAt(j) + random);
+			}
+	//add each endoded character to the new message	
+		newmsg = newmsg + " " + String.fromCharCode(newcode);
+	}
+	//display the encoded message on the web page
+	document.getElementById("secret").innerHTML = ("<h2>" + newmsg + "</h2>");
+	//decide if original message should be shown
+	var choice = prompt("Do you want the original emssage displayed along with the key? Yes or No?", " ");
+	if((choice.charAt(0) == 'y') || (choice.charAt(0) == 'Y'))
+		{
+	document.getElementById("message").innerHTML = ("<h2>" + msg + ". The Key was " + random + "." + "</h2>");
+		}
+	}
+	</script>
+</head>
+<body>
+<div id="container">
+
+ <h1 id="logo"><em>The Secret Message Encoder</em></h1>
+  
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="nav">
+  <p><a href="index.html">Home</a>
+  <a href="greg.html">About Greg</a>
+  <a href="play_games.html">Play a Game</a>
+  <a href="signin.html">Sign In</a>
+  <a href="contact.html">Contact Us</a></p>
+  <a href="greg_aboutyou.html">Tell Greg About You</a>
+</div>
+<div id="content">
+<h2>Write A Message and Encode It</h1>
+<p><input type="button" id="encode" value="Enter your message" onclick= "encodeIt();" /></p>
+<table cellpadding="2" width = "90%" align = "center" border="1">
+<tr> <td align="center" id="secret"><p>encoded message</p></td> </tr>
+<tr> <td align="center" id="message">&nbsp;</td></tr>
+</table>
+
+</div>
+<div id="footer">Copyright &copy; 2013 Greg's Gambits<br />
+<a href="mailto:yourfirstname@yourlastname.com">yourfirstname@yourlastname.com</a></div>
+</div>
+</body>
+</html>
